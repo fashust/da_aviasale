@@ -14,6 +14,30 @@ __author__ = 'fashust'
 __email__ = 'fashust.nefor@gmail.com'
 
 
+class Place(models.Model):
+    """
+        list of available places for dispatch and arrival
+    """
+    name = models.CharField(
+        max_length=128,
+        blank=False,
+        null=False
+    )
+
+    class Meta:
+        """
+            model meta
+        """
+        app_label = 'flights'
+        db_table = 'places'
+
+    def __unicode__(self):
+        """
+            unicode
+        """
+        return self.name
+
+
 class Flight(models.Model):
     """
         flights model
@@ -27,15 +51,19 @@ class Flight(models.Model):
         null=False,
         blank=False
     )
-    dispatch = models.CharField(
-        max_length=128,
-        blank=False,
-        null=False
+    dispatch = models.ForeignKey(
+        to=Place,
+        to_field='id',
+        related_name='dispatch_from',
+        null=False,
+        blank=False
     )
-    arrival = models.CharField(
-        max_length=128,
-        blank=False,
-        null=False
+    arrival = models.ForeignKey(
+        to=Place,
+        to_field='id',
+        related_name='arrives_to',
+        null=False,
+        blank=False
     )
     total_seats = models.PositiveSmallIntegerField(
         default=0,

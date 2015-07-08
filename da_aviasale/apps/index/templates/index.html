@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title>da_aviasale</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+            <h2>search form</h2>
+            <form class="form" id="search-form" action="{% url 'flights-search' %}">
+                {{ search_form.as_p }}
+                {% csrf_token %}
+                <input type="submit" value="find" />
+            </form>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-8">
+            <h2>results</h2>
+            <div class="results"></div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker3.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker3.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker3.standalone.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker3.standalone.min.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+<script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'js/ui.js' %}"></script>
+</body>
+</html>
