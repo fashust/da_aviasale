@@ -15,6 +15,8 @@ var form_selector = '#search-form',
     buy_btn = '.buy',
     popup_selector = '#orderPopup',
     result_selector = 'div[data-id="{0}"]',
+    order_btn = '#order',
+    order_form = 'form[name=order]',
     result_item_tpl = '<div data-id={0}><span>{1}</span><span>{2}</span>' +
         '<span>{3}</span><span>{4}</span>' +
         '<a class="buy" href="#" data-places={5} data-cost={6}>buy</a></div>';
@@ -52,7 +54,7 @@ function show_order_popup(flight_id) {
     $(popup_selector).find('input[name=flight]').val(flight_id);
     $(popup_selector).find('input[name=places]').val(result.places);
     $(popup_selector).find('input[name=cost]').val(result.cost / result.places);
-    $(popup_selector).find('input[name=total]').val(result.cost);
+    $(popup_selector).find('input[name=total_cost]').val(result.cost);
     $(popup_selector).modal();
 }
 
@@ -67,15 +69,11 @@ $(document).ready(function() {
 
     $(document).on('click', form_selector + ' > input[type=submit]', function(evt) {
         evt.preventDefault();
-        var data = {};
-        $(form_selector).serializeArray().map(function(x){
-            data[x.name] = x.value;
-        });
 
         $.ajax({
             type: 'POST',
             url: $(form_selector).attr('action'),
-            data: data,
+            data: $(form_selector).serialize(),
             success: search_results,
             failure: function(errMsg) {
                 console.log(errMsg);
@@ -96,6 +94,22 @@ $(document).ready(function() {
     });
 
     $(document).on('hide.bs.modal', popup_selector, function () {
-            console.log('clear popup');
+        console.log('clear popup');
+    });
+
+    $(document).on('click', order_btn, function(evt) {
+        evt.preventDefault();
+        console.log('order form');
+        $.ajax({
+            type: 'POST',
+            url: $(order_form).attr('action'),
+            data: $(order_form).serialize(),
+            success: function(response) {
+                console.log(response);
+            },
+            failure: function(errMsg) {
+                console.log(errMsg);
+            }
+        });
     });
 });

@@ -27,22 +27,23 @@
                     <h4 class="modal-title">Your order</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="contact" name="contact">
+                    <form class="contact" action="{% url 'order' %}" name="order">
                         <label class="label" for="places">Places</label><br>
-                        <input type="text" name="places" class="input" disabled><br>
+                        <input type="text" name="places" class="input" readonly><br>
                         <label class="label" for="cost">Cost per place</label><br>
-                        <input type="text" name="cost" class="input" disabled><br>
-                        <label class="label" for="total">Total</label><br>
-                        <input type="text" name="total" class="input" disabled><br>
+                        <input type="text" name="cost" class="input" readonly><br>
+                        <label class="label" for="total_cost">Total</label><br>
+                        <input type="text" name="total_cost" class="input" readonly><br>
                         <label class="label" for="name">Name</label><br>
                         <input type="text" name="name" class="input" value="name"><br> {% comment %}todo: remove default value{% endcomment %}
                         <label class="label" for="card">Card №</label><br>
                         <input type="text" name="card" class="input" value="1212121212121212"><br> {% comment %}todo: remove default value{% endcomment %}
                         <input type="hidden" name="flight" class="input">
+                        {% csrf_token %}
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <input class="btn btn-success" type="submit" value="Send!" id="submit" />
+                    <input class="btn btn-success" type="submit" value="order" id="order" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

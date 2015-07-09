@@ -7,6 +7,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 from decimal import Decimal
 
+from django.core.cache import cache
 from django.db import models
 
 
@@ -97,3 +98,17 @@ class Flight(models.Model):
             self.dispatch,
             self.arrival
         )
+
+    @property
+    def available_seats(self):
+        """
+            :return available seats on flight
+        """
+        return self.total_seats - self.reserved_seats
+
+    @property
+    def is_locked(self):
+        """
+            checks is flight locked
+        """
+        return cache.get(self.id)

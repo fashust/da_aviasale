@@ -31,6 +31,7 @@ class SearchViewHandler(View, JSONRequestResponseMixin):
         """
             init
         """
+        super(SearchViewHandler, self).__init__(**kwargs)
         self.response = {
             'status': True,
             'data': {},
@@ -67,6 +68,7 @@ class LockFlightViewHandler(View, JSONRequestResponseMixin):
         """
             init
         """
+        super(LockFlightViewHandler, self).__init__(**kwargs)
         self.response = {
             'status': True,
             'data': {},

@@ -24,6 +24,7 @@ urlpatterns = [
     # app urls
     url(r'^', include('da_aviasale.apps.index.urls')),
     url(r'^search/', include('da_aviasale.apps.flights.urls')),
+    url(r'^order/', include('da_aviasale.apps.orders.urls')),
 ]
 
 

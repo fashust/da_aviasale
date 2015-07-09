@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     # project apps
     'da_aviasale.apps.index',
     'da_aviasale.apps.flights',
+    'da_aviasale.apps.orders'
 )
 
 MIDDLEWARE_CLASSES = (
