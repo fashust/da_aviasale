@@ -19,6 +19,35 @@
             <div class="results"></div>
         </div>
     </div>
+    <div class="modal fade" id="orderPopup" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Your order</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="contact" name="contact">
+                        <label class="label" for="places">Places</label><br>
+                        <input type="text" name="places" class="input" disabled><br>
+                        <label class="label" for="cost">Cost per place</label><br>
+                        <input type="text" name="cost" class="input" disabled><br>
+                        <label class="label" for="total">Total</label><br>
+                        <input type="text" name="total" class="input" disabled><br>
+                        <label class="label" for="name">Name</label><br>
+                        <input type="text" name="name" class="input" value="name"><br> {% comment %}todo: remove default value{% endcomment %}
+                        <label class="label" for="card">Card №</label><br>
+                        <input type="text" name="card" class="input" value="1212121212121212"><br> {% comment %}todo: remove default value{% endcomment %}
+                        <input type="hidden" name="flight" class="input">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-success" type="submit" value="Send!" id="submit" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -32,5 +61,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
 <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 <script src="{% static 'js/ui.js' %}"></script>
+<style>
+    .label {
+        color: #000;
+    }
+    .contact input {
+        width: 75%;
+    }
+</style>
 </body>
 </html>

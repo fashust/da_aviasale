@@ -170,3 +170,7 @@ CACHES = {
         'LOCATION': 'flight-locker',
     }
 }
+
+
+# flight lock
+LOCK_TIMEOUT = 30#120  # lock for 2 minutes

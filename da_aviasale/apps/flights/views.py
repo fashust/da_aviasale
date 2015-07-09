@@ -7,7 +7,8 @@ from __future__ import absolute_import, print_function, unicode_literals
 import logging
 
 from django.views.generic import View
-from django.http import HttpResponse
+from django.core.cache import cache
+from django.conf import settings
 
 from da_aviasale.utils import JSONRequestResponseMixin
 
@@ -54,5 +55,46 @@ class SearchViewHandler(View, JSONRequestResponseMixin):
                 ),
                 'user_data': {'places': search_form.cleaned_data['places']}
             }
+        })
+        return self.render_to_response(self.response)
+
+
+class LockFlightViewHandler(View, JSONRequestResponseMixin):
+    """
+        lock flight for order
+    """
+    def __init__(self, **kwargs):
+        """
+            init
+        """
+        self.response = {
+            'status': True,
+            'data': {},
+            'errors': {}
+        }
+
+    def get(self, request, *args, **kwargs):
+        """
+            get method handler
+        """
+        lock = request.GET.get('lock', None)
+        if not lock or not request.is_ajax():
+            self.response.update({
+                'status': False,
+                'errors': 'lock is required'
+            })
+            return self.render_to_response(self.response)
+        if (
+                not lock.isdigit() or
+                int(lock) not in SearchWrapper.get_flights_ids()
+        ):
+            self.response.update({
+                'status': False,
+                'errors': 'nothing to lock'
+            })
+            return self.render_to_response(self.response)
+        cache.set(lock, True, settings.LOCK_TIMEOUT)
+        self.response.update({
+            'data': int(lock)
         })
         return self.render_to_response(self.response)

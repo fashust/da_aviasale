@@ -7,7 +7,8 @@ from __future__ import absolute_import, print_function, unicode_literals
 import logging
 import datetime
 
-from django.db.models import F, IntegerField, Sum, DecimalField
+from django.db.models import F, IntegerField, Sum
+from django.core.cache import cache
 
 from .models import Flight
 
@@ -46,7 +47,9 @@ class SearchWrapper(object):
         """
             search for flights
         """
-        flights = Flight.objects.select_related(
+        flights = Flight.objects.exclude(
+            id__in=cache.get_many(map(str, self.get_flights_ids())).keys()
+        ).select_related(
             'dispatch__name', 'arrival__name'
         ).filter(
             date__range=self.date,
@@ -65,3 +68,10 @@ class SearchWrapper(object):
         ).values(
             *VALUES_LIST
         )
+
+    @staticmethod
+    def get_flights_ids():
+        """
+            :return list of flights id
+        """
+        return Flight.objects.values_list('id', flat=True)
