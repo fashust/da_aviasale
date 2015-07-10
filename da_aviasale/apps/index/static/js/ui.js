@@ -17,6 +17,7 @@ var search_form_selector = '#search-form',
     result_selector = 'div[data-id="{0}"]',
     order_btn = '#order',
     order_form = 'form[name=order]',
+    thnx_popup = '#thnx',
     result_item_tpl = '<div class="results_row" data-id={0}><span>{1}</span><span>{2}</span>' +
         '<span>{3}</span><span>{4}</span>' +
         '<a class="buy" href="#" data-places={5} data-cost={6}>buy</a></div>',
@@ -91,10 +92,16 @@ function success_lock(response) {
     }
 }
 
+function show_thnx() {
+    $(thnx_popup).modal();
+}
+
 function success_order(response) {
     show_form_errors(order_form, null, true);
     if (response.status) {
-        alert('THNX');
+        $(popup_selector).modal("hide");
+        clear_popup();
+        show_thnx();
     } else {
         show_form_errors(order_form, response.errors, false);
     }
