@@ -35,9 +35,9 @@
                         <label class="label" for="total_cost">Total</label><br>
                         <input type="text" name="total_cost" class="input" readonly><br>
                         <label class="label" for="name">Name</label><br>
-                        <input type="text" name="name" class="input" value="name"><br> {% comment %}todo: remove default value{% endcomment %}
+                        <input type="text" name="name" class="input"><br>
                         <label class="label" for="card">Card №</label><br>
-                        <input type="text" name="card" class="input" value="1212121212121212"><br> {% comment %}todo: remove default value{% endcomment %}
+                        <input type="text" name="card" class="input"><br>
                         <input type="hidden" name="flight" class="input">
                         {% csrf_token %}
                     </form>
